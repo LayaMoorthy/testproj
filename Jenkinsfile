@@ -35,7 +35,7 @@ node {
     }
      stage('Deploy Docker Container') {
             steps {
-                ansiblePlaybook credentialsId: 'ansibleid', disableHostKeyChecking: true, extras: '-e TAG=${TAG} -e ENV=${DEPLOY_TO} --tags webpage', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/docker-deployment.yml'
+                ansiblePlaybook credentialsId: 'ansibleid', disableHostKeyChecking: true, extras: '-e TAG=${TAG} -e ENV=${DEPLOY_TO} --tags webpage', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/checkdocker.yml'
             }
         }
         
