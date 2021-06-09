@@ -33,4 +33,17 @@ node {
             app.push("latest")
         }
     }
+     stage('Deploy Docker Container') {
+            steps {
+                ansiblePlaybook credentialsId: 'ansibleid', disableHostKeyChecking: true, extras: '-e TAG=${TAG} -e ENV=${DEPLOY_TO} --tags webpage', installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/docker-deployment.yml'
+            }
+        }
+        
+        stage('Clean') {
+            steps {
+                sh "docker image rm -f ${REGISTRY}/webpage:${TAG}"
+                sh "docker system prune -f"
+                
+            }
+        }
 }
